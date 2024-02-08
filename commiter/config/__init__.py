@@ -11,14 +11,18 @@ from commiter.config.env_vars import (
 )
 
 
+fields_path = INPUT_FIELDS_PATH
+scopes_path = SCOPES_PATH
+
+
 if not config_file_exists(CONFIG_FOLDER_PATH):
     create_config_directory()
 
 
-if not config_file_exists(INPUT_FIELDS_PATH):
-    create_config_file(INPUT_FIELDS_PATH)
-    insert_initial_fields_values()
+if not config_file_exists(fields_path):
+    create_config_file(fields_path)
+    insert_initial_fields_values(fields_path)
 
 
-if not config_file_exists(SCOPES_PATH):
-    create_config_file(SCOPES_PATH)
+if not config_file_exists(scopes_path):
+    create_config_file(scopes_path)

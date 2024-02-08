@@ -3,9 +3,8 @@ from typing import Dict
 
 from commiter.config.env_vars import (
     CONFIG_FOLDER_PATH,
-    inputs_info,
     INPUT_FIELDS_PATH,
-    SCOPES_PATH,
+    inputs_info,
 )
 
 
@@ -25,19 +24,19 @@ def create_config_file(path: str) -> None:
         pass
 
 
-def insert_fields_values(inputs_status: Dict) -> None:
+def insert_fields_values(path: str, inputs_status: Dict) -> None:
     """"""
     for field, status in inputs_status.items():
-        command = f"echo {field}={status} >> {INPUT_FIELDS_PATH}"
+        command = f"echo {field}={status} >> {path}"
         os.system(command)
 
 
-def insert_initial_fields_values() -> None:
+def insert_initial_fields_values(path: str) -> None:
     """"""
     initial_field_status = {
         field: info["initial_value"] for field, info in inputs_info.items()
     }
-    insert_fields_values(inputs_status=initial_field_status)
+    insert_fields_values(path=path, inputs_status=initial_field_status)
 
 
 def read_config_file(path: str) -> str:
