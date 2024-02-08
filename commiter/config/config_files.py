@@ -3,8 +3,8 @@ from typing import Dict
 
 from commiter.config.env_vars import (
     CONFIG_FOLDER_PATH,
-    INPUT_FIELDS_PATH,
-    inputs_info,
+    FIELDS_STATUS_PATH,
+    input_fields_info,
 )
 
 
@@ -34,7 +34,7 @@ def insert_fields_values(path: str, inputs_status: Dict) -> None:
 def insert_initial_fields_values(path: str) -> None:
     """"""
     initial_field_status = {
-        field: info["initial_value"] for field, info in inputs_info.items()
+        field: info["initial_status"] for field, info in input_fields_info.items()
     }
     insert_fields_values(path=path, inputs_status=initial_field_status)
 
@@ -46,10 +46,10 @@ def read_config_file(path: str) -> str:
     return configfile_content.rstrip("\n")
 
 
-def get_current_fields_values() -> Dict:
+def get_current_fields_status() -> Dict:
     """Retrieve configuration variables from a given configuration file."""
     inputs_status = {}
-    with open(INPUT_FIELDS_PATH, "r") as file:
+    with open(FIELDS_STATUS_PATH, "r") as file:
         for line in file:
             key, value = line.strip().split("=")
             inputs_status[key] = value
