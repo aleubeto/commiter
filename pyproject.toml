@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "commiter"
+version = "0.1.0"
+description = "comitter cli"
+authors = ["aleubeto <aleubeto.dev@gmail.com>"]
+readme = "README.md"
+packages = [{include = "commiter"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+inquirerpy = "^0.3.4"
+typer = "^0.9.0"
+
+[tool.poetry.scripts]
+commiter = "commiter.main:commiter_cli"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
