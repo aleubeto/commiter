@@ -1,4 +1,5 @@
 import os
+from typing import Dict
 
 from commiter.config.env_vars import (
     CONFIG_FOLDER_PATH,
@@ -18,19 +19,25 @@ def create_config_directory() -> None:
     os.makedirs(CONFIG_FOLDER_PATH)
 
 
-def create_inputs_file() -> None:
+def create_config_file(path: str) -> None:
     """"""
-    with open(INPUT_FIELDS_PATH, "a"):
+    with open(path, "a"):
         pass
-    for key, input_data in inputs_info.items():
-        command = f"echo {key}={input_data.get('initial_value')} >> {INPUT_FIELDS_PATH}"
+
+
+def insert_fields_values(inputs_status: Dict) -> None:
+    """"""
+    for field, status in inputs_status.items():
+        command = f"echo {field}={status} >> {INPUT_FIELDS_PATH}"
         os.system(command)
 
 
-def create_scopes_file() -> None:
+def insert_initial_fields_values() -> None:
     """"""
-    with open(SCOPES_PATH, "a"):
-        pass
+    initial_field_status = {
+        field: info["initial_value"] for field, info in inputs_info.items()
+    }
+    insert_fields_values(inputs_status=initial_field_status)
 
 
 def read_config_file(path: str) -> str:
@@ -38,3 +45,13 @@ def read_config_file(path: str) -> str:
     with open(path, "r") as file_content:
         configfile_content = file_content.read()
     return configfile_content.rstrip("\n")
+
+
+def get_current_fields_values() -> Dict:
+    """Retrieve configuration variables from a given configuration file."""
+    inputs_status = {}
+    with open(INPUT_FIELDS_PATH, "r") as file:
+        for line in file:
+            key, value = line.strip().split("=")
+            inputs_status[key] = value
+    return inputs_status
