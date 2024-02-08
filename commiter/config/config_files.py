@@ -2,7 +2,7 @@ import os
 
 from commiter.config.env_vars import (
     CONFIG_FOLDER_PATH,
-    initial_inputs_status,
+    inputs_info,
     INPUT_FIELDS_PATH,
     SCOPES_PATH,
 )
@@ -22,6 +22,9 @@ def create_inputs_file() -> None:
     """"""
     with open(INPUT_FIELDS_PATH, "a"):
         pass
+    for key, input_data in inputs_info.items():
+        command = f"echo {key}={input_data.get('initial_value')} >> {INPUT_FIELDS_PATH}"
+        os.system(command)
 
 
 def create_scopes_file() -> None:
